@@ -16,20 +16,22 @@ const initialDateRange = {
     key: "selection",
 };
 
-interface DetailedListingPageProps {
-    reservations?: any;
-    listing: any;
-}
-const Details = ({listing={resortData},reservations = []}:DetailedListingPageProps) => {
+
+const Details = () => {
+    const [listing, setlisting] = useState({});
+    const [reservations, setreservations] = useState([{startDate:0,endDate:0}]);
+    useEffect(() =>{
+        setlisting({resortData})
+    },[resortData])
     const router = usePathname()
-    const currentPageID = router.split('/')[1]
+    const currentPageID = router.split('/')[1] as string
     const data = resortData.find(resort => resort.id === parseInt(currentPageID));
     console.log(data);
     
     const disabledDates = useMemo(() => {
         let dates: Date[] = [];
 
-        reservations.forEach((reservation:any) => {
+        reservations.forEach((reservation) => {
             const range = eachDayOfInterval({
                 start: new Date(reservation.startDate),
                 end: new Date(reservation.endDate),
@@ -42,7 +44,7 @@ const Details = ({listing={resortData},reservations = []}:DetailedListingPagePro
     }, [reservations]);
 
     const [isLoading, setIsLoading] = useState(false);
-    const [totalPrice, setTotalPrice] = useState(listing.price);
+    const [totalPrice, setTotalPrice] = useState(data?.price);
     const [dateRange, setDateRange] = useState<Range>(initialDateRange);
     const onCreateReservation = useCallback(() => {
         setIsLoading(true);
@@ -64,13 +66,13 @@ const Details = ({listing={resortData},reservations = []}:DetailedListingPagePro
                 dateRange.startDate
             );
 
-            if (dayCount && listing.price) {
-                setTotalPrice(dayCount * listing.price);
+            if (dayCount && data?.price) {
+                setTotalPrice(dayCount * data?.price);
             } else {
-                setTotalPrice(listing.price);
+                setTotalPrice(data?.price);
             }
         }
-    }, [dateRange, listing.price]);
+    }, [dateRange, data?.price]);
 
 
     return (
