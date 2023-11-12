@@ -100,7 +100,7 @@ const ListingCard: React.FC = ({
                         label={actionLabel}
                         disabled={disabled}
                         small
-                        onClick={handleCancel}
+                        onClick={handleCancel} 
                     />
                 )} */}
             </div>
