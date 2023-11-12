@@ -10,6 +10,9 @@ import { Range } from "react-date-range";
 import { toast } from "react-hot-toast";
 import Navbar from "../components/common/Navbar/Navbar";
 import resortData from "../components/common/data/resortData";
+
+
+
 const initialDateRange = {
     startDate: new Date(),
     endDate: new Date(),

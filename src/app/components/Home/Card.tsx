@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image"; 
+import Link from "next/link";
  interface cardProps {
     data:any
  }
@@ -8,8 +9,8 @@ const Card = ({data}:cardProps) => {
     const router = useRouter();
     return (
         <>
-            <div
-                onClick={() => router.push(`/${data.id}`)}
+            <Link href={`/${data.id}`}
+                
                 className="col-span-1 cursor-pointer group"
             >
                 <div className="flex flex-col gap-2 w-full">
@@ -51,7 +52,7 @@ const Card = ({data}:cardProps) => {
                         />
                     )} */}
                 </div>
-            </div>
+            </Link>
         </>
     )
 }
